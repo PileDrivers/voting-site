@@ -4,6 +4,8 @@ const express = require('express');
 const webpack = require('webpack');
 const config = require('./webpack.config.dev.js');
 
+const twitchBot = requite('twitch-bot');
+
 const app = express();
 const compiler = webpack(config);
 
@@ -23,6 +25,9 @@ app.get('*', (req, res) => {
   res.sendFile(path.resolve(__dirname, 'index.html'));
 });
 
+const Bot = createBot();
+
+
 app.listen(process.env.PORT || 5000, err => {
   if (err) {
     console.log(err);
@@ -30,3 +35,30 @@ app.listen(process.env.PORT || 5000, err => {
   }
   console.log(`Listening at http://localhost:${process.env.PORT || 5000}`);
 });
+
+
+
+
+
+
+
+const createBot = () => {
+  const Bot = new TwitchBot({
+    username: 'PylonDriver',
+    oauth: 'oauth:l5zhqt9r8pdb3ecjnakmfnql3fqq8z',
+    channels: ['pylondriver']
+  });
+
+  Bot.on('join', () => {
+    console.log("Hello Guys");
+    // Bot.on('message', chatter => {
+    //   //Logic for message parsing
+    // })
+  });
+
+  Bot.on('error', err => {
+    console.error(err);
+  });
+
+  return Bot;
+}
