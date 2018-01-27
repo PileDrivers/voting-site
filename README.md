@@ -7,6 +7,8 @@ To begin, run the following commands.
 - npm install
 - npm run dev
 
-Then open a browser  and navigate to localhost:8080
+Then open a browser and navigate to localhost:8080
+
+Make sure to add your oauth token to the ```TWITCH_PYLON_OAUTH`` env var. 
 
 Enjoy!
