@@ -9,11 +9,6 @@ module.exports = {
     filename: "bundle.js",
     publicPath: '/public/'
   },
-  build: {
-    extend (config) {
-      config.plugins = config.plugins.filter((plugin) => plugin.constructor.name !== 'UglifyJsPlugin')
-    }
-  },
   module: {
     loaders: [
       {
@@ -26,7 +21,12 @@ module.exports = {
       },
       {
         test: /\.less$/,
+        exclude: /(node_modules)/,
         loaders: ['style-loader', 'css-loader', 'less-loader']
+      },
+      {
+        test: /\.(png|jpg)$/i,
+        loader: 'url-loader?limit=200000'
       }
     ]
   },
