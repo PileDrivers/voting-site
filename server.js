@@ -41,4 +41,4 @@ http.listen(process.env.PORT || 5000, err => {
 const voteCounter = new VoteCounter(io);
 const Bot = createBot(voteCounter);
 const chooseWinner = voteCounter.chooseWinner.bind(voteCounter);
-setInterval(chooseWinner, 10.0 * 1000);
+setInterval(chooseWinner, 15.0 * 1000);
