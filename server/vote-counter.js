@@ -12,11 +12,18 @@ const baseVotes = {
 }
 
 const speechPool = [
-  'Hello',
-  'World',
+  'Hello world',
+  'Do not run over my friends',
+  'Beep beep get out of the way',
+  'Hacking all night is fun supposedly',
+  'I am pylon Rick!',
+  'Look me in the eyes and say that',
+  'Hello Shally',
+  'Follow road signs please',
+  'I am the peak of pylon evolution',
   'You must construct additional pylons',
   'Jesus I have been awake so long',
-  'Somebody send help',
+  'Do you know the way',
   'Hi George'
 ];
 
