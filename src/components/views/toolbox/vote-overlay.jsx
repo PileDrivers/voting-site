@@ -16,7 +16,8 @@ export default class VotingOverlay extends React.Component {
         speak1: 0,
         speak2: 0,
         speak3: 0
-      }
+      },
+      speechText: []
     };
   }
 
@@ -24,22 +25,27 @@ export default class VotingOverlay extends React.Component {
     const { endpoint } = this.state;
     const socket = openSocket(this.state.endpoint);
     socket.on('vote_count', data => this.setState({ votes: data }));
+    socket.on('speech_to_text', data => this.setState({ speechText: data }));
   }
   
   render () {
+    console.log(this.state);
     return(
       <div className='vote-overlay'>
-        Left: {this.state.votes.left}
+        <p className='maintext'>left (l): {this.state.votes.left}</p>
         <br/>
-        Right: {this.state.votes.right}
+        <p className='maintext'>right (r): {this.state.votes.right}</p>
         <br/>
-        Forward: {this.state.votes.forward}
+        <p className='maintext'>forward (f): {this.state.votes.forward}</p>
         <br/>
-        Speak1: {this.state.votes.speak1}
+        <p className='maintext'>speak1 (s1): {this.state.votes.speak1}</p>
+        <p className='subtext'>{this.state.speechText[0]}</p>
         <br/>
-        Speak2: {this.state.votes.speak2}
+        <p className='maintext'>speak2 (s2): {this.state.votes.speak2}</p>
+        <p className='subtext'>{this.state.speechText[1]}</p>
         <br/>
-        Speak3: {this.state.votes.speak3}
+        <p className='maintext'>speak3 (s3): {this.state.votes.speak3}</p>
+        <p className='subtext'>{this.state.speechText[2]}</p>
       </div>
     );
   }

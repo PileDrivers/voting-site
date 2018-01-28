@@ -11,6 +11,17 @@ const baseVotes = {
   speak3: 0
 }
 
+const speechPool = [
+  'Hello',
+  'World',
+  'You must construct additional pylons',
+  'Jesus I have been awake so long',
+  'Somebody send help',
+  'Hi George'
+];
+
+let speechMap = [];
+
 const regexMapping = {
   left: /\b(l|left)\b/,
   right: /\b(r|right)\b/,
@@ -70,13 +81,35 @@ module.exports = class VoteCounter {
     }
   }
 
-  sendCommand(command, data) {
+  sendCommand(command) {
+    let data;
+    switch(command) {
+      case 'speak1':
+        data = speechMap[0];
+        break;
+      case 'speak2': 
+        data = speechMap[1];
+        break;
+      case 'speak3':
+        data = speechMap[2];
+        break;
+      default:
+        data = '';
+    }
     let commandMessage = {
       command,
       duration: this.ACTION_DURATION,
       data
     };
     this.pylon_io.emit('command', commandMessage);
+  }
+
+  assignSpeech() {
+    for(let i = 0; i < 3; i++) {
+      let rand = Math.floor((Math.random() * speechPool.length));
+      speechMap[i] = speechPool[rand];
+    }
+    this.stream_data_io.emit('speech_to_text', speechMap);
   }
 
   chooseWinner() {
@@ -94,8 +127,9 @@ module.exports = class VoteCounter {
     } else {
       console.log("Winning command:", winCommand);
       this.sendCommand(winCommand);
-      this.clearVotes();
+      this.clearVotes();   
     }
+    this.assignSpeech();
   }
 }
 
