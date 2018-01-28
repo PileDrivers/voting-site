@@ -32,7 +32,7 @@ app.get('*', (req, res) => {
 });
 
 
-app.listen(process.env.PORT || 5000, err => {
+http.listen(process.env.PORT || 5000, err => {
   if (err) {
     console.log(err);
     return;
