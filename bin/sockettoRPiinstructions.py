@@ -1,23 +1,18 @@
 import RPi.GPIO as GPIO
 import time
-from socketIO_client import SocketIO, LoggingNamespace
-# Need https://github.com/socketio/socket.io-client for pulling json packets
-# Use https://elinux.org/RPi_Text_to_Speech_(Speech_Synthesis) for TTS
+# from socketIO_client import SocketIO, LoggingNamespace Need
+# https://github.com/socketio/socket.io-client
 
+FETChannels = [7,11] # Left motor is pin 2, right motor is pin 3
 
-GPIO.setmode(GPIO.BOARD)
-
-FETChannels = [2, 3]; # Left motor is pin 2, right motor is pin 3
-GPIO.setup(FETChannels, GPIO.OUT)
-GPIO.setup(FETChannels, GPIO.OUT, initial=GPIO.LOW)
 
 def fwd():
-    GPIO.output(FETChannel, GPIO.HIGH)
+    GPIO.output(FETChannels, GPIO.HIGH)
     time.sleep(3)
-    GPIO.output(FETChannel, GPIO.LOW)
+    GPIO.output(FETChannels, GPIO.LOW)
 
 def left():
-    GPIO.output(FETChannel[0], GPIO.HIGH)
+    GPIO.output(FETChannels[0], GPIO.HIGH)
     time.sleep(3)
     GPIO.output(FETChannel[0], GPIO.LOW)
 
@@ -26,6 +21,16 @@ def right():
     time.sleep(3)
     GPIO.output(FETChannel[1], GPIO.LOW)
 
+def main():
+    GPIO.setmode(GPIO.BOARD)
+    GPIO.setup(FETChannels, GPIO.OUT)
+    GPIO.setup(FETChannels, GPIO.OUT, initial=GPIO.LOW)
+    fwd()
+    print('run check')
+
+if __name__ == "__main__":
+    main()
+    GPIO.cleanup()
 ##### SocketIO client shit that we can look at when Nathan stops being a bitch
 
 # def on_connect():
