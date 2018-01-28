@@ -1,32 +1,47 @@
-import RPi.GPIO as GPIO
+#import RPi.GPIO as GPIO
 import time
+import serial
+
 # from socketIO_client import SocketIO, LoggingNamespace Need
 # https://github.com/socketio/socket.io-client
 
-FETChannels = [7,11] # Left motor is pin 2, right motor is pin 3
+FETChannels = [7,11] # Left motor is pin 7, right motor is pin 11
 
-
-def fwd():
-    GPIO.output(FETChannels, GPIO.HIGH)
-    time.sleep(3)
-    GPIO.output(FETChannels, GPIO.LOW)
-
-def left():
-    GPIO.output(FETChannels[0], GPIO.HIGH)
-    time.sleep(3)
-    GPIO.output(FETChannel[0], GPIO.LOW)
-
-def right():
-    GPIO.output(FETChannel[1], GPIO.HIGH)
-    time.sleep(3)
-    GPIO.output(FETChannel[1], GPIO.LOW)
+# def fwd():
+#     GPIO.output(FETChannels, GPIO.HIGH)
+#     time.sleep(3)
+#     GPIO.output(FETChannels, GPIO.LOW)
+#
+# def left():
+#     GPIO.output(FETChannels[0], GPIO.HIGH)
+#     time.sleep(3)
+#     GPIO.output(FETChannel[0], GPIO.LOW)
+#
+# def right():
+#     GPIO.output(FETChannel[1], GPIO.HIGH)
+#     time.sleep(3)
+#     GPIO.output(FETChannel[1], GPIO.LOW)
 
 def main():
-    GPIO.setmode(GPIO.BOARD)
-    GPIO.setup(FETChannels, GPIO.OUT)
-    GPIO.setup(FETChannels, GPIO.OUT, initial=GPIO.LOW)
-    fwd()
-    print('run check')
+    # GPIO.setmode(GPIO.BOARD)
+    # GPIO.setup(FETChannels, GPIO.OUT)
+    # GPIO.setup(FETChannels, GPIO.OUT, initial=GPIO.LOW)
+    # fwd()
+    # configure the serial connections (the parameters differs on the device you are connecting to)
+    print('run check') #/dev/ttyUSB1
+    ser = serial.Serial(
+        port='COM6',
+        baudrate=9600,
+        parity=serial.PARITY_ODD,
+        stopbits=serial.STOPBITS_TWO,
+        bytesize=serial.SEVENBITS
+    )
+    ser.isOpen(); print('Serial Open')
+    while 1:
+
+        ser.write('1'.encode('utf-8'))
+        time.sleep(2)
+        # print(a)s
 
 if __name__ == "__main__":
     main()
