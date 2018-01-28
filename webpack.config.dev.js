@@ -3,11 +3,16 @@ var webpack = require('webpack');
 
 module.exports = {
   context: __dirname,
-  entry: "./src/index.jsx",
+  entry: ["./src/index.jsx", "./src/less/custom.less"],
   output: {
     path: path.resolve(__dirname, 'public/'),
     filename: "bundle.js",
     publicPath: '/public/'
+  },
+  build: {
+    extend (config) {
+      config.plugins = config.plugins.filter((plugin) => plugin.constructor.name !== 'UglifyJsPlugin')
+    }
   },
   module: {
     loaders: [
@@ -20,8 +25,8 @@ module.exports = {
         }
       },
       {
-        test: /\.scss$/,
-        loader: 'style-loader!css-loader!sass-loader?sourceMap'
+        test: /\.less$/,
+        loaders: ['style-loader', 'css-loader', 'less-loader']
       }
     ]
   },

@@ -3,7 +3,7 @@ var webpack = require('webpack');
 
 module.exports = {
   context: __dirname,
-  entry: "./src/index.jsx",
+  entry: ["./src/index.jsx", "./src/less/custom.less"],
   output: {
     path: __dirname + '/public',
     filename: "bundle.js",
@@ -20,8 +20,8 @@ module.exports = {
         }
       },
       {
-        test: /\.scss$/,
-        loader: ExtractTextPlugin.extract('css-loader!sass-loader')
+        test: /\.less$/,
+        use: ['style-loader', 'css-loader', 'less-loader']
       }
     ]
   },

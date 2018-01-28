@@ -43,10 +43,9 @@ const createBot = () => {
   });
 
   Bot.on('join', () => {
-    //console.log("Hello Guys");
     Bot.on('message', chatter => {
        //Logic for message parsing
-       console.log(chatter.message);
+       console.log(chatter.username, chatter.message);
     })
   });
 

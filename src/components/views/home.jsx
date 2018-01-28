@@ -1,12 +1,14 @@
 import React from 'react';
 import { browserHistory } from 'react-router';
 
+import TwitchViewer from './toolbox/twitch-viewer';
+
 export default class Home extends React.Component {
 
   render() {
     return (
-      <div id="home">
-        This is the home page.
+      <div className='home'>
+        <TwitchViewer />
       </div>
     );
   }

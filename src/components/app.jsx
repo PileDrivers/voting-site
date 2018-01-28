@@ -9,7 +9,7 @@ export default class App extends React.Component {
 
     return (
       <BrowserRouter>
-        <div>
+        <div class='container'>
           <Header />
           <Routes />
         </div>
