@@ -102,7 +102,6 @@ var vote_manager = {
       this.votes.speak3 =+ 1;
       steam_data_io.emit('vote_count', this.votes);
     }
-    console.log(this.votes);
   },
   send_command: function(input_command, data) {
     var command = {
@@ -110,9 +109,54 @@ var vote_manager = {
       duration: COMMAND_DUR_CONST,
       data: data,
     }
+    console.log(command);
     pylon_io.emit('command', command);
+  },
+  choose_winner: function() {
+    var winning_count = 0;
+    var winning_command;
+    if (this.votes.left > winning_count) {
+      winning_count = this.votes.left;
+      winning_command = command_list.left;
+    }
+    if (this.votes.right > winning_count){
+      winning_count = this.votes.right;
+      winning_command = command_list.right;
+    }
+    if (this.votes.forward > winning_count){
+      winning_count = this.votes.forward;
+      winning_command = command_list.forward;
+    }
+    if (this.votes.speak1 > winning_count) {
+      winning_count = this.votes.speak1;
+      winning_command = command_list.speak1;
+    }
+    if (this.votes.speak2 > winning_count){
+      winning_count = this.votes.speak2;
+      winning_command = command_list.speak2;
+    }
+    if (this.votes.speak3 > winning_count) {
+      winning_count = this.votes.speak3;
+      winning_command = command_list.speak3;
+    }
+
+    // No winner case
+    if (winning_count == 0) {
+      console.log("No votes no winner")
+      return;
+    }
+
+    this.send_command(winning_command);
   }
 }
+
+var VOTE_TIME = 20.0; // in seconds
+
+function endVote() {
+  console.log("Vote done.");
+  vote_manager.choose_winner();
+}
+setInterval(endVote, VOTE_TIME*1000);
 
 
 const createBot = () => {
