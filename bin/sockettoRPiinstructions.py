@@ -1,7 +1,9 @@
 import RPi.GPIO as GPIO
 import time
 from socketIO_client import SocketIO, LoggingNamespace
-# Need https://github.com/socketio/socket.io-client
+# Need https://github.com/socketio/socket.io-client for pulling json packets
+# Use https://elinux.org/RPi_Text_to_Speech_(Speech_Synthesis) for TTS
+
 
 GPIO.setmode(GPIO.BOARD)
 
