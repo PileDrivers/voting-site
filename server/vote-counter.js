@@ -38,8 +38,9 @@ module.exports = class VoteCounter {
     this.votes = cloneDeep(baseVotes);
   }
 
-  clearVotes() {
+  clearVotes() { 
     this.votes = cloneDeep(baseVotes);
+    this.stream_data_io.emit('vote_count', this.votes);
   }  
 
   parseMessage(message) {

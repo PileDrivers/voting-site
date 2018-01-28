@@ -10,12 +10,13 @@
 
 .container {
   height: 100%;
+  overflow:hidden;
 }
 
 .header {
   align-content: center;
   height: 15%;
-  overflow-y: auto;
+
 
   .logo {
     display: block;
@@ -25,11 +26,29 @@
 
 .home {
   height: 85%;
+  overflow:hidden;
 }
 
 #twitch-embed {
   height: 100%;
   width: 100%;
   margin: 0 auto;
+  z-index: 0;
+  position: relative;
+  overflow: hidden;
+
+  .vote-overlay {
+    position: absolute;
+    z-index: 2;
+    left: 2%;
+    top: 30%;
+    color: rgb(255, 255, 255);
+    text-align: center;
+    background: rgb(0, 0, 0);
+    padding: 10px;
+    opacity: 0.7;
+    font-family: fantasy;
+    font-size: 2em;
+  }
 }
 

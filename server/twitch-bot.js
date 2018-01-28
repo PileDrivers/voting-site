@@ -1,5 +1,6 @@
 const TwitchBot = require('twitch-bot');
 
+let hasJoined = false;
 const createBot = (voteManager) => {
   const Bot = new TwitchBot({
     username: 'PylonDriver',
@@ -8,10 +9,14 @@ const createBot = (voteManager) => {
   });
 
   Bot.on('join', () => {
-    console.log("Connected to Twtich.");
-    Bot.on('message', chatter => {
-       voteManager.parseMessage(chatter.message);
-    })
+    if(!hasJoined) {
+      console.log("Connected to Twitch.");
+      Bot.on('message', chatter => {
+        console.log(chatter.message);
+        voteManager.parseMessage(chatter.message);
+      })
+    }
+    hasJoined = true;
   });
 
   Bot.on('error', err => {

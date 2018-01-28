@@ -11,13 +11,14 @@ export default class TwitchViewer extends React.Component {
       width: '100%',
       height: '100%',
       channel: 'pylondriver'
-    })
+    });
   }
 
   render () {
 
     return (
       <div id='twitch-embed'>
+        {this.props.children}
       </div>
     )
   }
