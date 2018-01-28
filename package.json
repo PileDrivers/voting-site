@@ -35,6 +35,8 @@
   },
   "devDependencies": {
     "css-loader": "^0.28.9",
+    "file-loader": "^1.1.6",
+    "image-webpack-loader": "^4.0.0",
     "jsx-loader": "^0.13.2",
     "less": "^2.7.3",
     "less-loader": "^4.0.5",
