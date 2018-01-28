@@ -6,7 +6,7 @@ export default class Header extends React.Component {
   render() {
     return (
       <div className='header'>
-        <img src='./images/banner.png' alt="PylonDriver"/>
+        <img className='logo' src={require('../../../images/banner.jpg')} alt="PylonDriver"/>
       </div>
     );
   }
