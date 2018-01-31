@@ -20,7 +20,7 @@ const speechPool = [
   'You must construct additional pylons',
   'Jesus I have been awake so long',
   'Do you know the way',
-  'Thank you for coming to Hacked Ed!'
+  'Hello Demo Camp!'
 ];
 
 let speechMap = [];
@@ -37,6 +37,7 @@ const regexMapping = {
 module.exports = class VoteCounter {
   constructor(socket) {
     this.io = socket;
+    this.bot = null;
     this.stream_data_io = this.io
       .of('/chat')
       .on('connection', function (socket) {
@@ -115,6 +116,16 @@ module.exports = class VoteCounter {
     this.stream_data_io.emit('speech_to_text', speechMap);
   }
 
+  setBot(bot) {
+    this.twitch_bot = bot;
+  }
+
+  sendTwtichChatMessage(message) {
+    if (this.twitch_bot != null) {
+      this.twitch_bot.say(message);
+    }
+  }
+
   chooseWinner() {
     let winCount = 0;
     let winCommand;
@@ -129,6 +140,7 @@ module.exports = class VoteCounter {
       console.log("No valid votes.");
     } else {
       console.log("Winning command:", winCommand);
+      this.sendTwtichChatMessage("Selected command: " + winCommand);
       this.sendCommand(winCommand);
       this.clearVotes();   
     }
